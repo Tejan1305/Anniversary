@@ -1,0 +1,106 @@
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400;1,600&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+html, body {
+  width: 100%;
+  height: 100%;
+  background: #09020d;
+  overflow: hidden;
+}
+
+/* Vignette overlay */
+.vignette {
+  position: fixed;
+  inset: 0;
+  background: radial-gradient(ellipse at center, transparent 25%, rgba(0,0,0,0.6) 70%, rgba(0,0,0,0.92) 100%);
+  pointer-events: none;
+  z-index: 5;
+}
+
+/* Credit scroll fade mask */
+.credit-mask {
+  mask-image: linear-gradient(to bottom,
+    transparent 0%,
+    rgba(0,0,0,1) 10%,
+    rgba(0,0,0,1) 82%,
+    transparent 100%
+  );
+  -webkit-mask-image: linear-gradient(to bottom,
+    transparent 0%,
+    rgba(0,0,0,1) 10%,
+    rgba(0,0,0,1) 82%,
+    transparent 100%
+  );
+}
+
+/* Floating button */
+@keyframes float-bob {
+  0%, 100% { transform: translate(-50%, -50%) translateY(0px); }
+  50%       { transform: translate(-50%, -50%) translateY(-18px); }
+}
+@keyframes glow-pulse {
+  0%, 100% { box-shadow: 0 0 25px #d4af3799, 0 0 50px #d4af3744, 0 0 80px #d4af3722; }
+  50%       { box-shadow: 0 0 40px #d4af37cc, 0 0 80px #d4af3766, 0 0 120px #d4af3733; }
+}
+.float-btn {
+  position: fixed;
+  transform: translate(-50%, -50%);
+  animation: float-bob 3s ease-in-out infinite, glow-pulse 2s ease-in-out infinite;
+  transition: left 2.8s cubic-bezier(0.45, 0.05, 0.55, 0.95),
+              top  2.8s cubic-bezier(0.45, 0.05, 0.55, 0.95);
+  cursor: pointer;
+  z-index: 50;
+}
+.float-btn:hover { transform: translate(-50%, -50%) scale(1.12); }
+
+/* No zoom — full image display */
+.kb-in, .kb-out { transform: none; }
+
+/* Floating hearts */
+@keyframes heart-rise {
+  0%   { opacity: 1;   transform: translateY(0)    scale(1)   rotate(0deg); }
+  100% { opacity: 0;   transform: translateY(-280px) scale(0.4) rotate(25deg); }
+}
+.heart-particle {
+  position: fixed;
+  animation: heart-rise linear forwards;
+  pointer-events: none;
+  z-index: 40;
+  font-size: 20px;
+  color: #e87070;
+}
+
+/* Slide transitions */
+.slide-fade-enter { opacity: 0; }
+.slide-fade-active { opacity: 1; transition: opacity 1.6s ease; }
+.slide-fade-exit  { opacity: 1; }
+.slide-fade-exit-active { opacity: 0; transition: opacity 1.6s ease; }
+
+/* Glassmorphism caption */
+.glass-card {
+  background: rgba(10, 5, 15, 0.55);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border: 1px solid rgba(212, 175, 55, 0.25);
+  border-radius: 16px;
+}
+
+/* Golden divider */
+.gold-line {
+  width: 120px;
+  height: 1px;
+  background: linear-gradient(to right, transparent, #d4af37, transparent);
+  margin: 0 auto;
+}
+
+/* Scrollable gallery */
+.gallery-wrap {
+  position: fixed;
+  inset: 0;
+  overflow: hidden;
+}
