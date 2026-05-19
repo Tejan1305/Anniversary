@@ -55,9 +55,16 @@ export default function CreditScroll({ onComplete }: Props) {
     const tl = gsap.timeline({ onComplete })
     // Stage 1: hold the title for 2s
     tl.set(text, { y: vh * 0.25 })
+    
+    // We subtract vh * 0.3 (the bottom padding) so we don't waste time scrolling empty space.
+    const distanceToScroll = totalH - (vh * 0.3);
+
+    // Decrease speed (divide by 35 instead of 55) so the text is easily readable.
+    const calculatedDuration = distanceToScroll / 30;
+
     tl.to(text, {
-      y: -(totalH + 100),
-      duration: 75,
+      y: -distanceToScroll,
+      duration: calculatedDuration,
       ease: 'none',
     }, '+=1.5')
 
@@ -179,7 +186,7 @@ export default function CreditScroll({ onComplete }: Props) {
         }}>
           Something beautiful is waiting for you…
         </p>
-        <div style={{ height: '160px' }} />
+        <div style={{ height: '30vh' }} />
       </div>
     </div>
   )
